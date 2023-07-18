@@ -8,6 +8,8 @@ const initialState = {
 export default function Home() {
   const [state, setState] = useState([initialState]);
 
+  const addCounter = () => setState((prev) => [...prev, initialState]);
+
   return (
     <>
       <header className="text-gray-600 body-font bg">
@@ -51,21 +53,55 @@ export default function Home() {
       </header>
       <div className="container mx-auto px-4">
         <p className="mt-24 text-4xl font-semibold">Couter</p>
-        {state.map((each) => (
-          <div className="overflow-hidden mt-10 mb-2 bg-purple-900 shadow-lg border rounded-lg lg:w-2/6 md:w-3/6 sm:w-4/6">
-            <div className="">
-              <div className="p-5 text-white text-center text-3xl bg-purple-900">
-                <span className="text-orange-500">Calcu</span>lator
-              </div>
-              <div className="pt-16 p-5 pb-0 text-white text-right text-3xl bg-purple-800">
-                2000 + 100
-              </div>
-              <div className="p-5 text-white text-right text-3xl bg-purple-800">
+        <button
+          type="button"
+          className="mt-12 py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+          onClick={addCounter}
+        >
+          Add Counter
+        </button>
+        <div className="flex gap-x-5">
+          {state.map((each, index) => (
+            <div
+              className="overflow-hidden mt-10 mb-2 bg-purple-900 shadow-lg border rounded-lg lg:w-2/6 md:w-3/6 sm:w-4/6"
+              key={index}
+            >
+              <div className="">
+                <div className="p-5 text-white text-center text-3xl bg-purple-900">
+                  <span>Counter {index + 1}</span>
+                </div>
+                <div className="p-5 pb-0 text-white text-right text-3xl bg-purple-800">
+                  <input
+                    type="text"
+                    value={each.counterValue}
+                    disabled
+                    className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                    placeholder="This is placeholder"
+                  />
+                </div>
+                {/* <div className="p-5 text-white text-right text-3xl bg-purple-800">
                 = <span className="text-orange-500">2100</span>
+              </div> */}
+                <div className="flex justify-center my-12">
+                  <div className="flex px-5 gap-x-10">
+                    <button
+                      type="button"
+                      className="!w-full py-3 px-4  gap-2 rounded-md border border-transparent font-semibold bg-gray-800 text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 transition-all text-sm dark:focus:ring-gray-900 dark:focus:ring-offset-gray-800"
+                    >
+                      Button
+                    </button>
+                    <button
+                      type="button"
+                      className="!w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                    >
+                      Button
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </>
   );
