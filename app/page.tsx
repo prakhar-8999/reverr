@@ -8,7 +8,29 @@ const initialState = {
 export default function Home() {
   const [state, setState] = useState([initialState]);
 
-  const addCounter = () => setState((prev) => [...prev, initialState]);
+  const addCounter = () =>
+    setState((prev) => [
+      ...prev,
+      {
+        counterValue: 0,
+      },
+    ]);
+  const increase = (index: number) =>
+    setState((prev) => {
+      prev[index].counterValue = prev[index].counterValue + 1;
+      return [...prev];
+    });
+  const decrease = (index: number) =>
+    setState((prev) => {
+      prev[index].counterValue = prev[index].counterValue - 1;
+      return [...prev];
+    });
+
+  const reset = (index: number) =>
+    setState((prev) => {
+      prev[index].counterValue = 0;
+      return [...prev];
+    });
 
   return (
     <>
@@ -60,10 +82,10 @@ export default function Home() {
         >
           Add Counter
         </button>
-        <div className="flex gap-x-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-5">
           {state.map((each, index) => (
             <div
-              className="overflow-hidden mt-10 mb-2 bg-purple-900 shadow-lg border rounded-lg lg:w-2/6 md:w-3/6 sm:w-4/6"
+              className="overflow-hidden mt-10 mb-2 bg-purple-900 shadow-lg border rounded-lg"
               key={index}
             >
               <div className="">
@@ -87,16 +109,27 @@ export default function Home() {
                     <button
                       type="button"
                       className="!w-full py-3 px-4  gap-2 rounded-md border border-transparent font-semibold bg-gray-800 text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 transition-all text-sm dark:focus:ring-gray-900 dark:focus:ring-offset-gray-800"
+                      onClick={() => increase(index)}
                     >
-                      Button
+                      Add +
                     </button>
                     <button
                       type="button"
                       className="!w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                      onClick={() => decrease(index)}
                     >
-                      Button
+                      Subtract -
                     </button>
                   </div>
+                </div>
+                <div className="container flex justify-center">
+                  <button
+                    type="button"
+                    className="!w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-purple-500 text-white hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                    onClick={() => reset(index)}
+                  >
+                    Reset
+                  </button>
                 </div>
               </div>
             </div>
